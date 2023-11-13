@@ -24,5 +24,15 @@ namespace InvoiceSystem
         {
             InitializeComponent();
         }
+
+        private void btnOpenInvoices_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnOpenItems_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

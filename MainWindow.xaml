@@ -5,7 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <StackPanel>
+        <Menu>
+            <MenuItem x:Name="btnOpenInvoices" Header="_Search" Click="btnOpenInvoices_Click" />
+            <MenuItem x:Name="btnOpenItems" Header="_Edit Items" Click="btnOpenItems_Click" />
+        </Menu>
+        <StackPanel Orientation="Horizontal">
+            <Grid x:Name="grdInvoiceForm" HorizontalAlignment="Left" Margin="10 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="btnEditInvoice" Margin="10">Edit Invoice</Button>
+                <Label x:Name="lblInvoiceNum" Grid.Column="0" Grid.Row="1">Invoice Num: </Label>
+                <TextBox x:Name="txtInvoiceNum" Grid.Column="1" Grid.Row="1" IsEnabled="False">TBD</TextBox>
+                
+                <Label x:Name="lblInvoiceDate" Grid.Column="0" Grid.Row="2">Invoice Date: </Label>
+                <DatePicker x:Name="dtInvoiceDate" Grid.Column="1" Grid.Row="2"/>
 
-    </Grid>
+                <Label x:Name="lblInvoiceCost" Grid.Column="0" Grid.Row="3">Total Cost: </Label>
+                <TextBox x:Name="txtInvoiceCost" Grid.Column="1" Grid.Row="3" IsEnabled="False">$0.00</TextBox>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2">
+                    <Label>Item: </Label>
+                    <ComboBox Margin="10 0 10 0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2">
+                    <Label>Cost: </Label>
+                    <Label>$0.00</Label>
+                    <Button>Add to invoice</Button>
+                </StackPanel>
+                <Button Grid.Row="6" Width="120" Margin="10">Save</Button>
+                <Button Grid.Row="6" Grid.Column="1" Width="120" Margin="10">Cancel</Button>
+            </Grid>
+            <StackPanel>
+                <DataGrid AutoGenerateColumns="False" Height="100"  Name="dgRowDetailsTemplate" Margin="10 10 0 0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=sItemID}" Header="Item ID" />
+                        <DataGridTextColumn Binding="{Binding Path=sItemName}" Header="Item name"/>
+                        <DataGridTextColumn Binding="{Binding Path=fItemPrice}" Header="Price" />
+                        <DataGridTextColumn Binding="{Binding Path=bItemSelect}" Header="Select" Width="60"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Width="100" Margin="0 10 0 0">Remove Item</Button>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Window>
