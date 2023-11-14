@@ -1,4 +1,7 @@
-﻿namespace InvoiceSystem
+﻿using System;
+using System.Reflection;
+
+namespace InvoiceSystem
 {
     /// <summary>
     /// SQL queries for the main window
@@ -14,7 +17,15 @@
         /// <returns></returns>
         public static string updateTotalCost(int invoiceNum, int totalCost)
         {
-            return "UPDATE Invoices SET TotalCost = " + totalCost.ToString() + " WHERE InvoiceNum = " + invoiceNum.ToString();
+            try
+            {
+                return "UPDATE Invoices SET TotalCost = " + totalCost.ToString() + " WHERE InvoiceNum = " + invoiceNum.ToString();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
 
         /// <summary>
@@ -27,7 +38,15 @@
         /// <returns></returns>
         public static string insertLineItem(int invoiceNum, int lineItemNum, string itemCode)
         {
-            return "INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) Values (" + invoiceNum.ToString() + ", " + lineItemNum.ToString() + ", " + itemCode + ")";
+            try
+            {
+                return "INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) Values (" + invoiceNum.ToString() + ", " + lineItemNum.ToString() + ", " + itemCode + ")";
+            }
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
 
         /// <summary>
@@ -39,7 +58,15 @@
         /// <returns></returns>
         public static string insertInvoice(string invoiceDate, int totalCost)
         {
-            return "INSERT INTO Invoices (InvoiceDate, TotalCost) Values (#" + invoiceDate + "#, " + totalCost.ToString() + ")";
+            try
+            {
+                return "INSERT INTO Invoices (InvoiceDate, TotalCost) Values (#" + invoiceDate + "#, " + totalCost.ToString() + ")";
+            }
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
         
         /// <summary>
@@ -50,7 +77,15 @@
         /// <returns></returns>
         public static string selectInvoice(int invoiceNum)
         {
-            return "SELECT InvoiceNum, InvoiceDate, TotalCost FROM Invoices WHERE InvoiceNum = " + invoiceNum.ToString();
+            try
+            {
+                return "SELECT InvoiceNum, InvoiceDate, TotalCost FROM Invoices WHERE InvoiceNum = " + invoiceNum.ToString();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
 
         /// <summary>
@@ -60,7 +95,15 @@
         /// <returns></returns>
         public static string selectItemDesc()
         {
-            return "SELECT ItemCode, ItemDesc, Cost from ItemDesc";
+            try
+            {
+                return "SELECT ItemCode, ItemDesc, Cost from ItemDesc";
+            }
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
 
         /// <summary>
@@ -71,8 +114,15 @@
         /// <returns></returns>
         public static string selectLineItemsOnInvoice(int invoiceNum)
         {
-
-            return "SELECT LineItems.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost FROM LineItems, ItemDesc Where LineItems.ItemCode = ItemDesc.ItemCode And LineItems.InvoiceNum = " + invoiceNum.ToString();
+            try
+            {
+                return "SELECT LineItems.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost FROM LineItems, ItemDesc Where LineItems.ItemCode = ItemDesc.ItemCode And LineItems.InvoiceNum = " + invoiceNum.ToString();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
 
         /// <summary>
@@ -83,7 +133,15 @@
         /// <returns></returns>
         public static string deleteLineItems(int invoiceNum)
         {
-            return "DELETE FROM LineItems WHERE InvoiceNum = " + invoiceNum.ToString();
+            try
+            {
+                return "DELETE FROM LineItems WHERE InvoiceNum = " + invoiceNum.ToString();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
 
     }
