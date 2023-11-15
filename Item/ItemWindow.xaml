@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="ItemWindow" Height="450" Width="800">
     <Grid>
-        
+            <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="23,314,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold"/>
+            <Button x:Name="btnAddItem_Copy" Content="Edit Item" HorizontalAlignment="Left" Margin="135,314,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold"/>
+            <Button x:Name="btnAddItem_Copy1" Content="Delete Item" HorizontalAlignment="Left" Margin="249,314,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" RenderTransformOrigin="2.845,0.623"/>
+            <Button x:Name="btnAddItem_Copy2" Content="Save Item" HorizontalAlignment="Left" Margin="135,381,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold"/>
+            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="400,22,10,22"/>
+            <Label Content="Code:" HorizontalAlignment="Left" Margin="43,60,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <Label HorizontalAlignment="Left" Margin="38,134,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <Label Content="Cost:" HorizontalAlignment="Left" Margin="43,134,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.496,2.235"/>
+            <Label Content="Description:" HorizontalAlignment="Left" Margin="43,220,0,0" VerticalAlignment="Top" FontSize="14"/>
     </Grid>
 </Window>
