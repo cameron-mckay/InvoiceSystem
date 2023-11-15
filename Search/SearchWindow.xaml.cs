@@ -23,5 +23,11 @@ namespace InvoiceSystem
         {
             InitializeComponent();
         }
+
+        //static boolean variable HasInvoiceBeenSelected, if an invoice is selected change to true
+        //variable to hold InvoiceNumber, default to null
+
+        //Populate the Date grid with invoices
+        //Populate the combo boxes with distinct invoicenums, dates, and total charges
     }
 }

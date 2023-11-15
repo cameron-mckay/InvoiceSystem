@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="SearchWindow" Height="450" Width="800">
     <Grid>
-        
+        <Label x:Name="lbInvoiceNumberLabel" Content="Invoice Number:" HorizontalAlignment="Left" Margin="80,257,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="lbInvoiceDateLabel" Content="Invoice Date:" HorizontalAlignment="Left" Margin="304,257,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="lbTotalChargeLabel" Content="Total Charge:" HorizontalAlignment="Left" Margin="521,257,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <ComboBox x:Name="cboInvoiceNumberComboBox" HorizontalAlignment="Left" Margin="191,261,0,0" VerticalAlignment="Top" Width="108"/>
+        <ComboBox x:Name="cboTotalChargeComboBox" HorizontalAlignment="Left" Margin="611,261,0,0" VerticalAlignment="Top" Width="108"/>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="160,64,160,207"/>
+        <Button x:Name="btnSelectInvoiceButton" Content="Select Invoice" HorizontalAlignment="Left" Margin="269,339,0,0" VerticalAlignment="Top" Height="38" Width="102" FontSize="14"/>
+        <Button x:Name="btnClearSelectionButton" Content="Clear Selection" HorizontalAlignment="Left" Margin="430,339,0,0" VerticalAlignment="Top" Height="38" Width="102" FontSize="14"/>
+        <ComboBox x:Name="cboInvoiceDateComboBox" HorizontalAlignment="Left" Margin="400,261,0,0" VerticalAlignment="Top" Width="108"/>
+
     </Grid>
 </Window>
