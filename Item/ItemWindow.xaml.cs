@@ -23,5 +23,7 @@ namespace InvoiceSystem
         {
             InitializeComponent();
         }
+        // static bool bHasItemsBeenChanged;  //Set to true when an item has been added/edited/deleted.  Used by main window to know if needs to  refresh items list
+        // bool HasItemsBeenChanged; //Property
     }
 }
