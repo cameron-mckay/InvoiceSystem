@@ -12,11 +12,20 @@ namespace InvoiceSystem.Item
         /// Gets all item codes and and descriptions from the ItemDesc table
         /// </summary>
         /// <returns></returns>
-        public string GetItems()
+        public static string GetItems()
         {
+            try 
+            {
             string sSQL = "select ItemCode, ItemDesc, Cost from ItemDesc";
         
             return sSQL;
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
         
         /// <summary>
@@ -24,11 +33,20 @@ namespace InvoiceSystem.Item
         /// </summary>
         /// <param name="sItemCode"></param>
         /// <returns></returns>
-        public string  SelectInvoicefromItemCode(string sItemCode)
+        public static string  SelectInvoicefromItemCode(string sItemCode)
         {
+            try 
+            {
             string sSQL = "select distinct(InvoiceNum) from LineItems where ItemCode = '" + sItemCode + "'";
         
             return sSQL;
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
         
         /// <summary>
@@ -37,11 +55,20 @@ namespace InvoiceSystem.Item
         /// <param name="sItemCode"></param>
         /// <param name="sItemDesc"></param>
         /// <returns></returns>
-        public string UpdateItemDesc(string sItemCode, string sItemCost, string sItemDesc)
+        public static string UpdateItemDesc(string sItemCode, string sItemCost, string sItemDesc)
         {
+            try 
+            {
             string sSQL = "Update ItemDesc Set ItemDesc = '"+ sItemDesc + " ', Cost = "+ sItemCost +" where ItemCode = '" + sItemCode +"'";
         
             return sSQL;
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }  
         
         /// <summary>
@@ -51,12 +78,22 @@ namespace InvoiceSystem.Item
         /// <param name="sItemDesc"></param>
         /// <param name="sItemCost"></param>
         /// <returns></returns>
-        public string InsertItemDesc(string sItemCode, string sItemDesc, string sItemCost)
+        public static string InsertItemDesc(string sItemCode, string sItemDesc, string sItemCost)
         {
-        
+
+            try 
+            {
+                
             string sSQL = "Insert into ItemDesc(ItemCode, ItemDesc, Cost) Values('"+ sItemCode +"', '" + sItemDesc + "', "+ sItemCost + ")";
         
             return sSQL;
+            }
+            
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         
         }
         
@@ -65,11 +102,20 @@ namespace InvoiceSystem.Item
         /// </summary>
         /// <param name="sItemCode"></param>
         /// <returns></returns>
-        public string DeleteItemDesc(string sItemCode)
+        public static string DeleteItemDesc(string sItemCode)
         {
+            try 
+            {
             string sSQL = "Delete from ItemDesc Where ItemCode = '"+ sItemCode +"'";
         
             return sSQL;
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
         }
     }
 }
