@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        Background="{DynamicResource WindowBackgroundBrush}"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
         <Menu>
@@ -48,7 +49,7 @@
                 <Button Grid.Row="6" Grid.Column="1" Width="120" Margin="10">Cancel</Button>
             </Grid>
             <StackPanel>
-                <DataGrid AutoGenerateColumns="False" Height="100"  Name="dgRowDetailsTemplate" Margin="10 10 0 0">
+                <DataGrid AutoGenerateColumns="False" Height="100"  Name="dgRowDetailsTemplate" Margin="10 10 0 0" Background="{DynamicResource WindowBackgroundBrush}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=sItemID}" Header="Item ID" />
                         <DataGridTextColumn Binding="{Binding Path=sItemName}" Header="Item name"/>
