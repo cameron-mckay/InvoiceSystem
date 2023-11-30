@@ -1,10 +1,10 @@
-﻿<Window x:Class="InvoiceSystem.MainWindow"
+﻿<mah:MetroWindow x:Class="InvoiceSystem.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Background="{DynamicResource WindowBackgroundBrush}"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
         <Menu>
@@ -49,7 +49,7 @@
                 <Button Grid.Row="6" Grid.Column="1" Width="120" Margin="10">Cancel</Button>
             </Grid>
             <StackPanel>
-                <DataGrid AutoGenerateColumns="False" Height="100"  Name="dgRowDetailsTemplate" Margin="10 10 0 0" Background="{DynamicResource WindowBackgroundBrush}">
+                <DataGrid AutoGenerateColumns="False" Height="100"  Name="dgRowDetailsTemplate" Margin="10 10 0 0">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=sItemID}" Header="Item ID" />
                         <DataGridTextColumn Binding="{Binding Path=sItemName}" Header="Item name"/>
@@ -61,4 +61,4 @@
             </StackPanel>
         </StackPanel>
     </StackPanel>
-</Window>
+</mah:MetroWindow>

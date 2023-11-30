@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,7 +19,7 @@ namespace InvoiceSystem
     /// <summary>
     /// Interaction logic for SearchWindow.xaml
     /// </summary>
-    public partial class SearchWindow : Window
+    public partial class SearchWindow : MetroWindow
     {
         /// <summary>
         /// Instantiates the search window
