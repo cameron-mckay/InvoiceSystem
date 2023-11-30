@@ -38,6 +38,11 @@ namespace InvoiceSystem
             }
         }
 
+        public void showWindow()
+        {
+            this.ShowDialog();
+        }
+
         /// <summary>
         /// Overrides the window close event to hide the window
         /// </summary>
