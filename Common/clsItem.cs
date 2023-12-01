@@ -1,4 +1,7 @@
-﻿namespace InvoiceSystem.Common
+﻿using System;
+using System.Reflection;
+
+namespace InvoiceSystem.Common
 {
     // Pulled this from the database using the db driver since I don't have MS access
     // InvoiceNum: System.Int32
@@ -32,9 +35,17 @@
         /// Constructor for the item object
         /// </summary>
         public clsItem() {
-            ItemCode = string.Empty;
-            ItemDesc = string.Empty;
-            ItemCost = 0;
+            try
+            {
+                ItemCode = string.Empty;
+                ItemDesc = string.Empty;
+                ItemCost = 0;
+            }
+            catch (Exception ex)
+            {
+                Common.clsCommonUtil.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
         /// <summary>
         /// Constructor for the item object
@@ -44,9 +55,17 @@
         /// <param name="itemCost"></param>
         public clsItem(string itemCode, string itemDesc, float itemCost)
         {
-            ItemCode = itemCode;
-            ItemDesc = itemDesc;
-            ItemCost = itemCost;
+            try
+            {
+                ItemCode = itemCode;
+                ItemDesc = itemDesc;
+                ItemCost = itemCost;
+            }
+            catch (Exception ex)
+            {
+                Common.clsCommonUtil.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
     }
 }

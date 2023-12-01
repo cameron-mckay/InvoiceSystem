@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace InvoiceSystem.Common
 {
@@ -34,11 +35,19 @@ namespace InvoiceSystem.Common
         /// <summary>
         /// Constructor for the invoice object
         /// </summary>
-        clsInvoice()
+        public clsInvoice()
         {
-            InvoiceNum = 0;
-            InvoiceDate = DateTime.Now;
-            Items = new List<clsItem>();
+            try
+            {
+                InvoiceNum = 0;
+                InvoiceDate = DateTime.Now;
+                Items = new List<clsItem>();
+            }
+            catch (Exception ex)
+            {
+                Common.clsCommonUtil.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
         /// <summary>
         /// Constructor for the invoice object
@@ -47,11 +56,19 @@ namespace InvoiceSystem.Common
         /// <param name="invoiceDate"></param>
         /// <param name="totalCost"></param>
         /// <param name="items"></param>
-        clsInvoice(int invoiceNum, DateTime invoiceDate, List<clsItem> items)
+        public clsInvoice(int invoiceNum, DateTime invoiceDate, List<clsItem> items)
         {
-            InvoiceNum = invoiceNum;
-            InvoiceDate = invoiceDate;
-            Items = items;
+            try
+            {
+                InvoiceNum = invoiceNum;
+                InvoiceDate = invoiceDate;
+                Items = items;
+            }
+            catch (Exception ex)
+            {
+                Common.clsCommonUtil.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -60,12 +77,21 @@ namespace InvoiceSystem.Common
         /// <returns></returns>
         public float getTotalCost()
         {
-            float totalCost = 0;
-            for (int i = 0; i < Items.Count; i++)
+            try
             {
-                totalCost += Items[i].ItemCost;
+                float totalCost = 0;
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    totalCost += Items[i].ItemCost;
+                }
+                return totalCost;
             }
-            return totalCost;
+            catch (Exception ex)
+            {
+                Common.clsCommonUtil.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+                return 0;
+            }
         }
     }
 }
