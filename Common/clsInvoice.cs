@@ -23,7 +23,7 @@ namespace InvoiceSystem.Common
         /// <summary>
         /// Unique invoice ID
         /// </summary>
-        public int InvoiceNum { get; set; }
+        public string InvoiceNum { get; set; }
         /// <summary>
         /// Date of the invoice
         /// </summary>
@@ -39,7 +39,7 @@ namespace InvoiceSystem.Common
         {
             try
             {
-                InvoiceNum = 0;
+                InvoiceNum = "TBD";
                 InvoiceDate = DateTime.Now;
                 Items = new List<clsItem>();
             }
@@ -56,7 +56,7 @@ namespace InvoiceSystem.Common
         /// <param name="invoiceDate"></param>
         /// <param name="totalCost"></param>
         /// <param name="items"></param>
-        public clsInvoice(int invoiceNum, DateTime invoiceDate, List<clsItem> items)
+        public clsInvoice(string invoiceNum, DateTime invoiceDate, List<clsItem> items)
         {
             try
             {
@@ -75,16 +75,16 @@ namespace InvoiceSystem.Common
         /// Returns the total cost of the items on the invoice
         /// </summary>
         /// <returns></returns>
-        public float getTotalCost()
+        public int getTotalCost()
         {
             try
             {
-                float totalCost = 0;
+                decimal totalCost = 0;
                 for (int i = 0; i < Items.Count; i++)
                 {
                     totalCost += Items[i].ItemCost;
                 }
-                return totalCost;
+                return (int)Math.Round(totalCost);
             }
             catch (Exception ex)
             {

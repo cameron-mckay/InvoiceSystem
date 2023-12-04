@@ -15,11 +15,11 @@ namespace InvoiceSystem
         /// <param name="invoiceNum"></param>
         /// <param name="totalCost"></param>
         /// <returns></returns>
-        public static string updateTotalCost(int invoiceNum, int totalCost)
+        public static string updateTotalCost(string invoiceNum, float totalCost)
         {
             try
             {
-                return "UPDATE Invoices SET TotalCost = " + totalCost.ToString() + " WHERE InvoiceNum = " + invoiceNum.ToString();
+                return "UPDATE Invoices SET TotalCost = " + totalCost.ToString() + " WHERE InvoiceNum = " + invoiceNum;
             }
             catch (Exception e)
             {
@@ -36,11 +36,11 @@ namespace InvoiceSystem
         /// <param name="lineItemNum"></param>
         /// <param name="itemCode"></param>
         /// <returns></returns>
-        public static string insertLineItem(int invoiceNum, int lineItemNum, string itemCode)
+        public static string insertLineItem(string invoiceNum, int lineItemNum, string itemCode)
         {
             try
             {
-                return "INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) Values (" + invoiceNum.ToString() + ", " + lineItemNum.ToString() + ", " + itemCode + ")";
+                return "INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) Values (" + invoiceNum + ", " + lineItemNum.ToString() + ", '" + itemCode + "')";
             }
             catch (Exception e)
             {
@@ -56,7 +56,7 @@ namespace InvoiceSystem
         /// <param name="invoiceDate"></param>
         /// <param name="totalCost"></param>
         /// <returns></returns>
-        public static string insertInvoice(string invoiceDate, int totalCost)
+        public static string insertInvoice(string invoiceDate, float totalCost)
         {
             try
             {
@@ -75,11 +75,11 @@ namespace InvoiceSystem
         /// </summary>
         /// <param name="invoiceNum"></param>
         /// <returns></returns>
-        public static string selectInvoice(int invoiceNum)
+        public static string selectInvoice(string invoiceNum)
         {
             try
             {
-                return "SELECT InvoiceNum, InvoiceDate, TotalCost FROM Invoices WHERE InvoiceNum = " + invoiceNum.ToString();
+                return "SELECT InvoiceNum, InvoiceDate, TotalCost FROM Invoices WHERE InvoiceNum = " + invoiceNum;
             }
             catch (Exception e)
             {
@@ -112,11 +112,11 @@ namespace InvoiceSystem
         /// </summary>
         /// <param name="invoiceNum"></param>
         /// <returns></returns>
-        public static string selectLineItemsOnInvoice(int invoiceNum)
+        public static string selectLineItemsOnInvoice(string invoiceNum)
         {
             try
             {
-                return "SELECT LineItems.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost FROM LineItems, ItemDesc Where LineItems.ItemCode = ItemDesc.ItemCode And LineItems.InvoiceNum = " + invoiceNum.ToString();
+                return "SELECT LineItems.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost FROM LineItems, ItemDesc Where LineItems.ItemCode = ItemDesc.ItemCode And LineItems.InvoiceNum = " + invoiceNum;
             }
             catch (Exception e)
             {
@@ -131,11 +131,11 @@ namespace InvoiceSystem
         /// </summary>
         /// <param name="invoiceNum"></param>
         /// <returns></returns>
-        public static string deleteLineItems(int invoiceNum)
+        public static string deleteLineItems(string invoiceNum)
         {
             try
             {
-                return "DELETE FROM LineItems WHERE InvoiceNum = " + invoiceNum.ToString();
+                return "DELETE FROM LineItems WHERE InvoiceNum = " + invoiceNum;
             }
             catch (Exception e)
             {
@@ -143,6 +143,17 @@ namespace InvoiceSystem
                                     MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
             }
         }
-
+        public static string getNewInvoiceNum()
+        {
+            try
+            {
+                return "SELECT MAX(InvoiceNum) FROM Invoices";
+            }
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + 
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
+        }
     }
 }

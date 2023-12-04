@@ -30,7 +30,7 @@ namespace InvoiceSystem.Common
         /// <summary>
         /// Cost of the item
         /// </summary>
-        public float ItemCost { get; set; }
+        public decimal ItemCost { get; set; }
         /// <summary>
         /// Constructor for the item object
         /// </summary>
@@ -53,7 +53,7 @@ namespace InvoiceSystem.Common
         /// <param name="itemCode"></param>
         /// <param name="itemDesc"></param>
         /// <param name="itemCost"></param>
-        public clsItem(string itemCode, string itemDesc, float itemCost)
+        public clsItem(string itemCode, string itemDesc, decimal itemCost)
         {
             try
             {
@@ -65,6 +65,23 @@ namespace InvoiceSystem.Common
             {
                 Common.clsCommonUtil.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Override the default tostring method
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            try {
+                return this.ItemCode + " - " + this.ItemDesc;
+            }
+            catch (Exception ex)
+            {
+                Common.clsCommonUtil.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+                return "";
             }
         }
     }
