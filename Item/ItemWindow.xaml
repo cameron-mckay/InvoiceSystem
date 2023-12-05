@@ -8,14 +8,17 @@
         mc:Ignorable="d"
         Title="ItemWindow" Height="512" Width="800" Closing="Window_Closing">
     <Grid>
-            <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="23,314,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold"/>
-            <Button x:Name="btnAddItem_Copy" Content="Edit Item" HorizontalAlignment="Left" Margin="135,314,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold"/>
-            <Button x:Name="btnAddItem_Copy1" Content="Delete Item" HorizontalAlignment="Left" Margin="249,314,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" RenderTransformOrigin="2.845,0.623"/>
-            <Button x:Name="btnAddItem_Copy2" Content="Save Item" HorizontalAlignment="Left" Margin="135,381,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold"/>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="400,22,10,22"/>
-        <Label Content="Code:" HorizontalAlignment="Left" Margin="43,60,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <Label HorizontalAlignment="Left" Margin="38,134,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <Label Content="Cost:" HorizontalAlignment="Left" Margin="43,134,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.496,2.235"/>
-            <Label Content="Description:" HorizontalAlignment="Left" Margin="43,220,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="23,351,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" Click="btnAddItem_Click"/>
+        <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="135,351,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" Click="btnEditItem_Click"/>
+        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="249,351,0,0" VerticalAlignment="Top" Height="49" Width="111" FontSize="16" FontWeight="Bold" RenderTransformOrigin="2.845,0.623" Click="btnDeleteItem_Click"/>
+        <Button x:Name="btnSaveItem" Content="Save Item" HorizontalAlignment="Left" Margin="135,411,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" Click="btnSaveItem_Click" IsEnabled="False"/>
+        <DataGrid x:Name="ItemList" Margin="400,22,10,22" CanUserAddRows="False" CurrentCellChanged="ItemList_CurrentCellChanged" IsReadOnly="True"/>
+        <Label x:Name="lblCode" Content="Code:" HorizontalAlignment="Left" Margin="43,60,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="ErrorLabel" HorizontalAlignment="Left" Margin="23,272,0,0" VerticalAlignment="Top" FontSize="14" Height="74" Width="337"/>
+        <Label x:Name="lblCost" Content="Cost:" HorizontalAlignment="Left" Margin="43,134,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.496,2.235"/>
+        <Label x:Name="lblDesc" Content="Description:" HorizontalAlignment="Left" Margin="43,220,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="CodeTextbox" HorizontalAlignment="Left" Margin="135,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <TextBox x:Name="CostTextbox" HorizontalAlignment="Left" Margin="135,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True" PreviewTextInput="NumberValidationTextBox"/>
+        <TextBox x:Name="DescTextbox" HorizontalAlignment="Left" Margin="135,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
     </Grid>
 </mah:MetroWindow>

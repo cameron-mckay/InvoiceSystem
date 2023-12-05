@@ -56,11 +56,11 @@ namespace InvoiceSystem.Item
         /// <param name="sItemCode"></param>
         /// <param name="sItemDesc"></param>
         /// <returns></returns>
-        public static string UpdateItemDesc(string sItemCode, string sItemCost, string sItemDesc)
+        public static string UpdateItemDesc(string sItemCode, decimal sItemCost, string sItemDesc)
         {
             try 
             {
-            string sSQL = "Update ItemDesc Set ItemDesc = '"+ sItemDesc + " ', Cost = "+ sItemCost +" where ItemCode = '" + sItemCode +"'";
+            string sSQL = "Update ItemDesc Set ItemDesc = '"+ sItemDesc + "', Cost = "+ sItemCost +" where ItemCode = '" + sItemCode.ToString() +"'";
         
             return sSQL;
             }
@@ -79,13 +79,13 @@ namespace InvoiceSystem.Item
         /// <param name="sItemDesc"></param>
         /// <param name="sItemCost"></param>
         /// <returns></returns>
-        public static string InsertItemDesc(string sItemCode, string sItemDesc, string sItemCost)
+        public static string InsertItemDesc(string sItemCode, string sItemDesc, decimal sItemCost)
         {
 
             try 
             {
                 
-            string sSQL = "Insert into ItemDesc(ItemCode, ItemDesc, Cost) Values('"+ sItemCode +"', '" + sItemDesc + "', "+ sItemCost + ")";
+            string sSQL = "Insert into ItemDesc(ItemCode, ItemDesc, Cost) Values('"+ sItemCode +"', '" + sItemDesc + "', "+ sItemCost.ToString() +")";
         
             return sSQL;
             }

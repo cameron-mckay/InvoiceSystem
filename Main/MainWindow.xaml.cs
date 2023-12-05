@@ -129,13 +129,23 @@ namespace InvoiceSystem
         {
             try
             {
-                // Ignore if in create or edit mode
-                if (currentMode == Mode.CREATE || currentMode == Mode.EDIT)
+                // Check mode
+                if (!(currentMode == Mode.VIEW || currentMode == Mode.NO_INVOICE))
                     return;
+                // Show window
                 itemWindow.ShowDialog();
-                // Check if items were updated on the static bool variable on the Item window
-                // If they were, reload the items list
-                cbChooseItem.ItemsSource = logic.getAllItems();
+                // Check if items were changed
+                if(ItemWindow.bHasItemsChanged)
+                {
+                    // Check if items were updated on the static bool variable on the Item window
+                    // If they were, reload the items list
+                    cbChooseItem.ItemsSource = logic.getAllItems();
+                    if(currentInvoice.InvoiceNum != "TBD")
+                    {
+                        currentInvoice = logic.getInvoiceByID(currentInvoice.InvoiceNum);
+                    }
+                    updateUI();
+                }
             }
             catch (Exception ex)
             {

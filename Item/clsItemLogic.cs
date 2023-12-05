@@ -1,53 +1,179 @@
-﻿using System;
+﻿using InvoiceSystem.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Runtime.CompilerServices;
+using System.Reflection;
+using System.Windows.Documents;
 
 namespace InvoiceSystem.Item
 {
     public class clsItemLogic
     {
+        /// <summary>
+        /// database
+        /// </summary>
+        clsDataAccess db;
+
+        /// <summary>
+        /// int for storing the invoice num if an item is on an invoice
+        /// </summary>
+        public static string invoicenum;
+           
+
+        /// <summary>
+        /// creating an object to access  the database
+        /// </summary>
+        public clsItemLogic() 
+        { 
+            db = new clsDataAccess();
+        }
+
+        /// <summary>
+        /// Getting data from the db, looping through it and putting that data into a list
+        /// </summary>
+        /// <returns></returns>
+        public List<clsItem> GetAllItems()
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                List<clsItem> lstItems = new List<clsItem>();
+                int iRet = 0;
+
+                string sSQL = clsItemSQL.GetItems();
+                ds = db.ExecuteSQLStatement(sSQL, ref iRet);
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    clsItem item = new clsItem();
+                    item.ItemCode = dr[0].ToString();
+                    item.ItemDesc = dr[1].ToString();
+                    item.ItemCost = Convert.ToDecimal(dr[2]);
+
+                    lstItems.Add(item);
+                }
+
+                return lstItems;
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Adding an item to the db
+        /// </summary>
+        /// <param name="item"></param>
+        public void AddItem(clsItem item)
+        { 
+            try
+            {
+                int iRet = 0;
+
+                string sSQL = clsItemSQL.InsertItemDesc(item.ItemCode, item.ItemDesc, item.ItemCost);
+                iRet = db.ExecuteNonQuery(sSQL);
+            }
             
-    /*
-    a separate class, clsItem will be used that just holds:
 
-    code  
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
+        }
 
-    cost
 
-    description
-       
+        /// <summary>
+        /// Editing an existing item in the db
+        /// </summary>
+        /// <param name="oldItem"></param>
+        /// <param name="newItem"></param>
+        public void EditItem(clsItem oldItem, clsItem newItem)
+        {
+            try
+            {
+                int iRet = 0;
 
-    
-    public static List GetAllItems()
-    {
+                string sSQL = clsItemSQL.UpdateItemDesc(oldItem.ItemCode, newItem.ItemCost, newItem.ItemDesc);
+                iRet = db.ExecuteNonQuery(sSQL);
+            }
 
-        return List<clsItem>;
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
+        }
 
-        this method will get all of our items in the database as a list
-    }
+        /// <summary>
+        /// Deleting an existing item from the db
+        /// </summary>
+        /// <param name="item"></param>
+        public void DeleteItem(string itemcode)
+        {
+            try
+            {
+                int iRet = 0;
 
-    public void AddItem(clsItem)
-    {
-        this method will add an item, needing a type of clsItem to be passed in
-    }
+                string sSQL = clsItemSQL.DeleteItemDesc(itemcode);
+                iRet = db.ExecuteNonQuery(sSQL);
+            }
 
-    public void EditItem(clsItem clsOldItem, clsItem clsNewItem)
-    {
-        this method will edit an item, needing two clsItem types to be passed in, one for the old item and one for the old item
-    }
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
+        }
 
-    public void DeleteItem(clsItem clsItemtoDelete)
-    {
-        this method will delete  an item, getting passed in the clsItem that needs to be deleted
-    }
+        /// <summary>
+        /// Checking if an item in the db is on an existing invoice
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool IsItemOnInvoice(clsItem item)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                int iRet = 0;
 
-    public bool IsItemOnInvoice(clsItem)
-    {
-        this method will check if a given item is on an invoice, if true, the item cannot be deleted
-        return false;
-    } */
+                string sSQL = clsItemSQL.SelectInvoicefromItemCode(item.ItemCode);
+                ds = db.ExecuteSQLStatement(sSQL, ref iRet);
+
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    return false;
+                }
+
+                else
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+
+                        invoicenum = dr[0].ToString();
+
+                    }
+                    
+                    return true;
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + e.Message);
+            }
+
+        }
         
     }
 }
