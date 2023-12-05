@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using InvoiceSystem.Search;
 using InvoiceSystem.Common;
+using System.ComponentModel;
 
 namespace InvoiceSystem
 {
@@ -143,7 +144,7 @@ namespace InvoiceSystem
         /// <param name="e"></param>
         private void InvoicesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(InvoicesDataGrid.SelectedItem != null && InvoicesDataGrid.SelectedIndex < InvoicesDataGrid.Items.Count - 1)
+            if(InvoicesDataGrid.SelectedItem != null)
             {
                 //Select new item, update label, and set boolean to true;
                 clsInvoice selectedInvoice = (clsInvoice)InvoicesDataGrid.SelectedItem;
@@ -186,6 +187,15 @@ namespace InvoiceSystem
             cboInvoiceDateComboBox.SelectedItem = null;
 
             InvoicesDataGrid.ItemsSource = searchLogic.getInvoices();
+        }
+        /// <summary>
+        /// Override the OnClosing Event to set HasInvoiceBeenSelected to false if the user closes out of the window
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            HasInvoiceBeenSelected = false;
+            base.OnClosing(e);
         }
     }
 }
