@@ -96,7 +96,6 @@ namespace InvoiceSystem
                 Trace.WriteLine(invoice.getTotalCost().ToString());
                 // Insert the invoice
                 int rowsEffected = db.ExecuteNonQuery(clsMainSQL.insertInvoice(invoice.InvoiceDate.ToString(), invoice.getTotalCost()));
-                Trace.WriteLine("TEST");
                 // If failed, throw error
                 if(rowsEffected == 0)
                 {
@@ -108,18 +107,7 @@ namespace InvoiceSystem
                 for(int i = 0; i < invoice.Items.Count; i++)
                 {
                     // Insert line item
-                    Trace.WriteLine(invoiceNum);
-                    Trace.WriteLine(invoice.Items[i].ItemCode);
-                    Trace.WriteLine(i);
-                    Trace.WriteLine(clsMainSQL.insertLineItem(invoiceNum, i, invoice.Items[i].ItemCode));
-
-                    rowsEffected = db.ExecuteNonQuery(clsMainSQL.insertLineItem(invoiceNum, i, invoice.Items[i].ItemCode));
-                    Trace.WriteLine("TEST");
-                    // If failed throw error
-                    if(rowsEffected == 0)
-                    {
-                        throw new Exception("Failed to insert line item");
-                    }
+                    db.ExecuteNonQuery(clsMainSQL.insertLineItem(invoiceNum, i, invoice.Items[i].ItemCode));
                 }
                 return invoiceNum;
             }
@@ -139,24 +127,15 @@ namespace InvoiceSystem
             try
             {
                 // Delete existing line items
-                int rowsEffected = db.ExecuteNonQuery(clsMainSQL.deleteLineItems(invoice.InvoiceNum));
-                if (rowsEffected == 0) {
-                    throw new Exception("Could not delete line items");
-                }
+                db.ExecuteNonQuery(clsMainSQL.deleteLineItems(invoice.InvoiceNum));
                 // create new line items
                 for (int i = 0; i < invoice.Items.Count; i++)
                 {
                     // Insert the line item
-                    rowsEffected = db.ExecuteNonQuery(clsMainSQL.insertLineItem(invoice.InvoiceNum, i+1, invoice.Items[i].ItemCode));
-                    // If failed
-                    if (rowsEffected == 0) {
-                        // Delete line items
-                        db.ExecuteNonQuery(clsMainSQL.deleteLineItems(invoice.InvoiceNum));
-                        throw new Exception("Could not insert line items");
-                    }
+                    db.ExecuteNonQuery(clsMainSQL.insertLineItem(invoice.InvoiceNum, i+1, invoice.Items[i].ItemCode));
                 }
                 // Update the total cost
-                rowsEffected = db.ExecuteNonQuery(clsMainSQL.updateTotalCost(invoice.InvoiceNum, invoice.getTotalCost()));
+                int rowsEffected = db.ExecuteNonQuery(clsMainSQL.updateTotalCost(invoice.InvoiceNum, invoice.getTotalCost()));
                 // Throw an error if unsuccessful
                 if (rowsEffected == 0) {
                     throw new Exception("Could not update total cost");

@@ -100,12 +100,16 @@ namespace InvoiceSystem
         {
             try
             {
+                searchWindow.resetWindow();
                 searchWindow.ShowDialog();
-                // Check if an invoice was selected, and what ID it was from static variables on Search window
-                // If both conditions are met, open the invoice for editing
-                currentInvoice = logic.getInvoiceByID("5017");
-                currentMode = Mode.VIEW;
-                dtInvoiceDate.Text = currentInvoice.InvoiceDate.ToShortDateString();
+                if(SearchWindow.HasInvoiceBeenSelected)
+                {
+                    // Check if an invoice was selected, and what ID it was from static variables on Search window
+                    // If both conditions are met, open the invoice for editing
+                    currentInvoice = logic.getInvoiceByID(SearchWindow.sInvoiceNumber);
+                    currentMode = Mode.VIEW;
+                    dtInvoiceDate.Text = currentInvoice.InvoiceDate.ToShortDateString();
+                }
                 updateUI();
             }
             catch (Exception ex)
