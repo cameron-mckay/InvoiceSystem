@@ -64,15 +64,24 @@ namespace InvoiceSystem
         {
             try
             {
+                // Close other windows when main window is closed
                 Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                // Initialize other windows
                 itemWindow = new ItemWindow();
                 searchWindow = new SearchWindow();
+                // Initialize business logic
                 logic = new clsMainLogic();
+                // Create an empty invoice
                 currentInvoice = new clsInvoice();
+                // Initialize UI
                 InitializeComponent();
+                // Set mode
                 currentMode = Mode.NO_INVOICE;
+                // Get items
                 cbChooseItem.ItemsSource = logic.getAllItems();
+                // Set date
                 dtInvoiceDate.Text = DateTime.Now.ToShortDateString();
+                // Update the UI
                 updateUI();
             }
             catch (Exception ex)
@@ -213,22 +222,26 @@ namespace InvoiceSystem
                     return;
                 // Validate the current invoice
                 updateUI();
-                // Call logic to save it
+                // If invoice is valid - call logic to save it
                 if(logic.invoiceValid(currentInvoice))
                 {
+                    // If in create mode
                     if(currentMode == Mode.CREATE)
                     {
+                        // Create new invoice and set the invoice number
                         currentInvoice.InvoiceNum = logic.createNewInvoice(currentInvoice);
                     } else
                     {
+                        // Update an existing invoice
                         logic.updateInvoice(currentInvoice);
                     }
+                    // Get invoice from DB
                     currentInvoice = logic.getInvoiceByID(currentInvoice.InvoiceNum);
+                    // Set view mode
                     currentMode = Mode.VIEW;
+                    // Update the UI
                     updateUI();
                 }
-                // Go back to view mode
-                //currentMode = Mode.VIEW;
             }
             catch (Exception ex)
             {
@@ -245,16 +258,23 @@ namespace InvoiceSystem
         {
             try
             {
+                // If in create mode
                 if (currentMode == Mode.CREATE)
                 {
+                    // Set invoice to an empty invoice object
                     currentInvoice = new clsInvoice();
+                    // Set no invoice mode
                     currentMode = Mode.NO_INVOICE;
+                    // Update the UI
                     updateUI();
                 }
                 else if (currentMode == Mode.EDIT)
                 {
+                    // Reload invoice from DB
                     currentInvoice = logic.getInvoiceByID(currentInvoice.InvoiceNum);
+                    // Enter view mode
                     currentMode = Mode.VIEW;
+                    // Update the UI
                     updateUI();
                 }
             }
