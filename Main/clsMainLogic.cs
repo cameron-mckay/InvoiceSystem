@@ -91,9 +91,6 @@ namespace InvoiceSystem
         {
             try
             {
-                Trace.WriteLine(invoice.InvoiceDate.ToString());
-                Trace.WriteLine(invoice.Items.Count.ToString());
-                Trace.WriteLine(invoice.getTotalCost().ToString());
                 // Insert the invoice
                 int rowsEffected = db.ExecuteNonQuery(clsMainSQL.insertInvoice(invoice.InvoiceDate.ToString(), invoice.getTotalCost()));
                 // If failed, throw error
@@ -102,7 +99,6 @@ namespace InvoiceSystem
                     throw new Exception("Failed to create invoice");
                 }
                 string invoiceNum = (string)db.ExecuteScalarSQL(clsMainSQL.getNewInvoiceNum());
-                Trace.WriteLine(invoiceNum);
                 // Loop through items
                 for(int i = 0; i < invoice.Items.Count; i++)
                 {
@@ -157,9 +153,8 @@ namespace InvoiceSystem
         {
             try
             {
-                // Make sure date is valid and invoice has items
-                return invoice.InvoiceDate < DateTime.Now &&
-                    invoice.Items.Count > 0;
+                // Placeholder in case validation is needed
+                return true;
             }
             catch (Exception e)
             {
