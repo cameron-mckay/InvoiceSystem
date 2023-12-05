@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using InvoiceSystem.Search;
+using InvoiceSystem.Common;
 
 namespace InvoiceSystem
 {
@@ -21,6 +23,17 @@ namespace InvoiceSystem
     /// </summary>
     public partial class SearchWindow : MetroWindow
     {
+
+        /// <summary>
+        /// Boolean that tracks whether user has selected an invoice
+        /// </summary>
+        public static Boolean HasInvoiceBeenSelected;
+
+        /// <summary>
+        /// String that will hold invoice number, if non selected will be set to null on default
+        /// </summary>
+        public static string sInvoiceNumber;
+
         /// <summary>
         /// Instantiates the search window
         /// </summary>
@@ -29,6 +42,8 @@ namespace InvoiceSystem
             try
             {
                 InitializeComponent();
+                //Call method that populates combo boxes and data grid
+                populateWindow();
             }
             catch (Exception ex)
             {
@@ -58,10 +73,119 @@ namespace InvoiceSystem
             }
         }
 
-        //static boolean variable HasInvoiceBeenSelected, if an invoice is selected change to true
-        //variable to hold InvoiceNumber, default to null
+        private void populateWindow()
+        {
+            //Populate combo boxes with invoice nums, dates, and costs
+            clsSearchLogic searchLogic = new clsSearchLogic();
+            cboInvoiceNumberComboBox.ItemsSource = searchLogic.getDistinctInvoiceNums();
+            cboInvoiceDateComboBox.ItemsSource = searchLogic.getDistinctInvoiceDates();
+            cboTotalChargeComboBox.ItemsSource = searchLogic.getDistinctTotalCosts();
 
-        //Populate the Date grid with invoices
-        //Populate the combo boxes with distinct invoicenums, dates, and total charges
+            //Populate data grid with list of invoice objects
+            InvoicesDataGrid.ItemsSource = searchLogic.getInvoices();
+        }
+        /// <summary>
+        /// Method that takes care of sorting list of invoices based on selections from user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Reset hasBeenSelected boolean and invoiceNum int
+            HasInvoiceBeenSelected = false;
+            sInvoiceNumber = null;
+
+            //Reset selectedItems label and reset selection from datagrid
+            InvoicesDataGrid.SelectedItem = null;
+            lbSelectedItemLabel.Content = "Selected Item: None";
+
+            clsSearchLogic searchLogic = new clsSearchLogic();
+
+            //Based on which combo boxes are selected, a method will be called to update the data grid based on selections
+            if (cboInvoiceNumberComboBox.SelectedItem != null && cboInvoiceDateComboBox.SelectedItem == null && cboTotalChargeComboBox.SelectedItem == null)
+            {
+                InvoicesDataGrid.ItemsSource = searchLogic.updateInvoicesOnNum(cboInvoiceNumberComboBox.SelectedItem.ToString());
+            }
+            if (cboInvoiceNumberComboBox.SelectedItem == null && cboInvoiceDateComboBox.SelectedItem != null && cboTotalChargeComboBox.SelectedItem == null)
+            {
+                InvoicesDataGrid.ItemsSource = searchLogic.updateInvoicesOnDate(cboInvoiceDateComboBox.SelectedItem.ToString());
+            }
+            if (cboInvoiceNumberComboBox.SelectedItem == null && cboInvoiceDateComboBox.SelectedItem == null && cboTotalChargeComboBox.SelectedItem != null)
+            {
+                InvoicesDataGrid.ItemsSource = searchLogic.updateInvoicesOnCost(cboTotalChargeComboBox.SelectedItem.ToString());
+            }
+            if (cboInvoiceNumberComboBox.SelectedItem != null && cboInvoiceDateComboBox.SelectedItem != null && cboTotalChargeComboBox.SelectedItem == null)
+            {
+                InvoicesDataGrid.ItemsSource = searchLogic.updateInvoicesOnNum_Date(cboInvoiceNumberComboBox.SelectedItem.ToString(), cboInvoiceDateComboBox.SelectedItem.ToString());
+            }
+            if (cboInvoiceNumberComboBox.SelectedItem != null && cboInvoiceDateComboBox.SelectedItem != null && cboTotalChargeComboBox.SelectedItem != null)
+            {
+                InvoicesDataGrid.ItemsSource = searchLogic.updateInvoicesOnAll(cboInvoiceNumberComboBox.SelectedItem.ToString(), cboInvoiceDateComboBox.SelectedItem.ToString(), cboTotalChargeComboBox.SelectedItem.ToString());
+            }
+            if (cboInvoiceNumberComboBox.SelectedItem == null && cboInvoiceDateComboBox.SelectedItem != null && cboTotalChargeComboBox.SelectedItem != null)
+            {
+                InvoicesDataGrid.ItemsSource = searchLogic.updateInvoicesOnDate_Cost(cboInvoiceDateComboBox.SelectedItem.ToString(), cboTotalChargeComboBox.SelectedItem.ToString());
+            }
+        }
+        /// <summary>
+        /// Method that clears all the selection in combo boxes, and rests list of invoices in data grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClearSelectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            resetWindow();
+        }
+        /// <summary>
+        /// Method that handles the event in which an invoice is selected from data grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InvoicesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(InvoicesDataGrid.SelectedItem != null && InvoicesDataGrid.SelectedIndex < InvoicesDataGrid.Items.Count - 1)
+            {
+                //Select new item, update label, and set boolean to true;
+                clsInvoice selectedInvoice = (clsInvoice)InvoicesDataGrid.SelectedItem;
+                lbSelectedItemLabel.Content = "Selected Item: Invoice Number " + selectedInvoice.InvoiceNum.ToString();
+                HasInvoiceBeenSelected = true;
+                sInvoiceNumber = selectedInvoice.InvoiceNum;
+            }
+        }
+        /// <summary>
+        /// Button that is pressed when user has selected an invoice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelectInvoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(InvoicesDataGrid.SelectedItem != null)
+            {
+                this.Hide();
+            }
+            
+        }
+        /// <summary>
+        /// Resets the contents of window back to default
+        /// </summary>
+        public void resetWindow()
+        {
+            //Reset hasBeenSelected boolean and invoiceNum int
+            HasInvoiceBeenSelected = false;
+            sInvoiceNumber = null;
+
+            clsSearchLogic searchLogic = new clsSearchLogic();
+
+            //Reset selectedItems label and reset selection from datagrid
+            InvoicesDataGrid.SelectedItem = null;
+            lbSelectedItemLabel.Content = "Selected Item: None";
+
+            //Resets datagrid and sets all combo boxes to null
+            cboTotalChargeComboBox.SelectedItem = null;
+            cboInvoiceNumberComboBox.SelectedItem = null;
+            cboInvoiceDateComboBox.SelectedItem = null;
+
+            InvoicesDataGrid.ItemsSource = searchLogic.getInvoices();
+        }
     }
 }
