@@ -370,6 +370,13 @@ namespace InvoiceSystem
                         updateUI();
                         return;
                 }
+                clsItem selected = (clsItem)cbChooseItem.SelectedItem;
+                decimal cost;
+                if (selected != null)
+                    cost = selected.ItemCost;
+                else
+                    cost = 0;
+                txtCost.Content = $"{cost:C}";
                 // Update the invoice number
                 txtInvoiceNum.Text = currentInvoice.InvoiceNum;
                 // Update the total cost

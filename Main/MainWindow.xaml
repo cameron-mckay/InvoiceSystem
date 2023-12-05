@@ -35,23 +35,23 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Button x:Name="btnEditInvoice" Margin="10" Click="btnEditInvoice_Click">Edit Invoice</Button>
-                <Label x:Name="lblInvoiceNum" Grid.Column="0" Grid.Row="1">Invoice Num: </Label>
-                <TextBox x:Name="txtInvoiceNum" Grid.Column="1" Grid.Row="1" IsEnabled="False"/>
+                <Label x:Name="lblInvoiceNum" Grid.Column="0" Grid.Row="1" Margin="0 5">Invoice Num: </Label>
+                <TextBox x:Name="txtInvoiceNum" Grid.Column="1" Grid.Row="1" IsEnabled="False" Margin="0 5"/>
 
-                <Label x:Name="lblInvoiceDate" Grid.Column="0" Grid.Row="2">Invoice Date: </Label>
-                <DatePicker x:Name="dtInvoiceDate" Grid.Column="1" Grid.Row="2"/><!-- SelectedDate="{ Binding Path=currentInvoice.InvoiceDate.to, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>-->
+                <Label x:Name="lblInvoiceDate" Grid.Column="0" Grid.Row="2" Margin="0 5">Invoice Date: </Label>
+                <DatePicker x:Name="dtInvoiceDate" Grid.Column="1" Grid.Row="2" Margin="0 5"/><!-- SelectedDate="{ Binding Path=currentInvoice.InvoiceDate.to, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>-->
 
-                <Label x:Name="lblInvoiceCost" Grid.Column="0" Grid.Row="3">Total Cost: </Label>
-                <TextBox x:Name="txtInvoiceCost" Grid.Column="1" Grid.Row="3" IsEnabled="False">$0.00</TextBox>
+                <Label x:Name="lblInvoiceCost" Grid.Column="0" Grid.Row="3" Margin="0 5">Total Cost: </Label>
+                <TextBox x:Name="txtInvoiceCost" Grid.Column="1" Grid.Row="3" IsEnabled="False" Margin="0 5">$0.00</TextBox>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" Margin="0 5">
                     <Label>Item: </Label>
                     <ComboBox x:Name="cbChooseItem" Margin="10 0 10 0" SelectionChanged="cbChooseItem_SelectionChanged"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" Margin="0 5">
                     <Label>Cost: </Label>
                     <Label x:Name="txtCost">$0.00</Label>
-                    <Button x:Name="btnAddToInvoice" Click="btnAddToInvoice_Click">Add to invoice</Button>
+                    <Button x:Name="btnAddToInvoice" Click="btnAddToInvoice_Click" Margin="10 0">Add to invoice</Button>
                 </StackPanel>
                 <Button x:Name="btnSave" Grid.Row="6" Width="120" Margin="10" Click="btnSave_Click">Save</Button>
                 <Button x:Name="btnCancel" Grid.Row="6" Grid.Column="1" Width="120" Margin="10" Click="btnCancel_Click">Cancel</Button>
@@ -61,7 +61,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=ItemCode}" Header="Item Code" />
                         <DataGridTextColumn Binding="{Binding Path=ItemDesc}" Header="Item Desc"/>
-                        <DataGridTextColumn Binding="{Binding Path=ItemCost}" Header="Item Cost" />
+                        <DataGridTextColumn Binding="{Binding Path=ItemCost, StringFormat=C}" Header="Item Cost" />
                     </DataGrid.Columns>
                 </DataGrid>
                 <Button x:Name="btnRemoveItem" Width="100" Margin="0 10 0 0" Click="btnRemoveItem_Click">Remove Item</Button>
