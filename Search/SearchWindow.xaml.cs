@@ -234,7 +234,8 @@ namespace InvoiceSystem
                 cboInvoiceNumberComboBox.SelectedItem = null;
                 cboInvoiceDateComboBox.SelectedItem = null;
 
-                InvoicesDataGrid.ItemsSource = searchLogic.getInvoices();
+                //Populate window again
+                populateWindow();
             }
             catch (Exception ex)
             {
