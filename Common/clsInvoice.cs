@@ -33,6 +33,10 @@ namespace InvoiceSystem.Common
         /// </summary>
         public List<clsItem> Items { get; set; }
         /// <summary>
+        /// Total cost of the items on the invoice as an int
+        /// </summary>
+        public int InvoiceTotalCost { get; set; }
+        /// <summary>
         /// Constructor for the invoice object
         /// </summary>
         public clsInvoice()
@@ -72,7 +76,7 @@ namespace InvoiceSystem.Common
         }
 
         /// <summary>
-        /// Returns the total cost of the items on the invoice
+        /// updates and returns the total cost of the items on the invoice
         /// </summary>
         /// <returns></returns>
         public int getTotalCost()
@@ -84,7 +88,8 @@ namespace InvoiceSystem.Common
                 {
                     totalCost += Items[i].ItemCost;
                 }
-                return (int)Math.Round(totalCost);
+                InvoiceTotalCost = (int)Math.Round(totalCost);
+                return InvoiceTotalCost;
             }
             catch (Exception ex)
             {
