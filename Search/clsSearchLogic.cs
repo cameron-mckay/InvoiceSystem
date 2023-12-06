@@ -96,7 +96,7 @@ namespace InvoiceSystem.Search
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     String temp;
-                    temp = dr[0].ToString();
+                    temp = dr[0].ToString().Substring(0,9);
                     listInvoiceDates.Add(temp);
                 }
 
@@ -130,7 +130,7 @@ namespace InvoiceSystem.Search
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     String temp;
-                    temp = dr[0].ToString();
+                    temp = "$" + dr[0].ToString() + ".00";
                     listInvoiceCosts.Add(temp);
                 }
 
@@ -165,6 +165,7 @@ namespace InvoiceSystem.Search
                     clsInvoice newInvoice = new clsInvoice();
                     newInvoice.InvoiceNum = dr[0].ToString();
                     newInvoice.InvoiceDate = DateTime.Parse(dr[1].ToString());
+                    newInvoice.InvoiceTotalCost = Int32.Parse(dr[2].ToString());
                     listInvoices.Add(newInvoice);
                 }
 
@@ -204,6 +205,7 @@ namespace InvoiceSystem.Search
                     clsInvoice newInvoice = new clsInvoice();
                     newInvoice.InvoiceNum = dr[0].ToString();
                     newInvoice.InvoiceDate = DateTime.Parse(dr[1].ToString());
+                    newInvoice.InvoiceTotalCost = Int32.Parse(dr[2].ToString());
                     listInvoices.Add(newInvoice);
                 }
                 
@@ -230,9 +232,6 @@ namespace InvoiceSystem.Search
                 //Create new list of invoice objects
                 listInvoices = new List<clsInvoice>();
 
-                //edit string
-                invoiceDate.Substring(0, 9);
-
                 //Clear dataset
                 ds.Clear();
                 // Set dataset to include all distinct invoice numbers
@@ -243,6 +242,7 @@ namespace InvoiceSystem.Search
                     clsInvoice newInvoice = new clsInvoice();
                     newInvoice.InvoiceNum = dr[0].ToString();
                     newInvoice.InvoiceDate = DateTime.Parse(dr[1].ToString());
+                    newInvoice.InvoiceTotalCost = Int32.Parse(dr[2].ToString());
                     listInvoices.Add(newInvoice);
                 }
 
@@ -269,6 +269,9 @@ namespace InvoiceSystem.Search
                 //Create new list of invoice objects
                 listInvoices = new List<clsInvoice>();
 
+                //edit cost
+                cost = cost.Substring(1, cost.Length - 3);
+
                 //Clear dataset
                 ds.Clear();
                 // Set dataset to include all distinct invoice numbers
@@ -279,6 +282,7 @@ namespace InvoiceSystem.Search
                     clsInvoice newInvoice = new clsInvoice();
                     newInvoice.InvoiceNum = dr[0].ToString();
                     newInvoice.InvoiceDate = DateTime.Parse(dr[1].ToString());
+                    newInvoice.InvoiceTotalCost = Int32.Parse(dr[2].ToString());
                     listInvoices.Add(newInvoice);
                 }
 
@@ -305,9 +309,6 @@ namespace InvoiceSystem.Search
                 //Create new list of invoice objects
                 listInvoices = new List<clsInvoice>();
 
-                //edit string
-                date.Substring(0, 9);
-
                 //parse string into an integer
                 int invoice = Int32.Parse(num);
 
@@ -321,6 +322,7 @@ namespace InvoiceSystem.Search
                     clsInvoice newInvoice = new clsInvoice();
                     newInvoice.InvoiceNum = dr[0].ToString();
                     newInvoice.InvoiceDate = DateTime.Parse(dr[1].ToString());
+                    newInvoice.InvoiceTotalCost = Int32.Parse(dr[2].ToString());
                     listInvoices.Add(newInvoice);
                 }
 
@@ -349,8 +351,8 @@ namespace InvoiceSystem.Search
                 //Create new list of invoice objects
                 listInvoices = new List<clsInvoice>();
 
-                //edit string
-                date.Substring(0, 9);
+                //edit cost
+                cost = cost.Substring(1, cost.Length - 3);
 
                 //parse string into an integer
                 int invoice = Int32.Parse(num);
@@ -365,6 +367,7 @@ namespace InvoiceSystem.Search
                     clsInvoice newInvoice = new clsInvoice();
                     newInvoice.InvoiceNum = dr[0].ToString();
                     newInvoice.InvoiceDate = DateTime.Parse(dr[1].ToString());
+                    newInvoice.InvoiceTotalCost = Int32.Parse(dr[2].ToString());
                     listInvoices.Add(newInvoice);
                 }
 
@@ -392,8 +395,8 @@ namespace InvoiceSystem.Search
                 //Create new list of invoice objects
                 listInvoices = new List<clsInvoice>();
 
-                //edit string
-                date.Substring(0, 9);
+                //edit cost
+                cost = cost.Substring(1, cost.Length - 3);
 
                 //Clear dataset
                 ds.Clear();
@@ -405,6 +408,7 @@ namespace InvoiceSystem.Search
                     clsInvoice newInvoice = new clsInvoice();
                     newInvoice.InvoiceNum = dr[0].ToString();
                     newInvoice.InvoiceDate = DateTime.Parse(dr[1].ToString());
+                    newInvoice.InvoiceTotalCost = Int32.Parse(dr[2].ToString());
                     listInvoices.Add(newInvoice);
                 }
 

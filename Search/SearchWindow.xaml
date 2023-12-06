@@ -13,7 +13,13 @@
         <Label x:Name="lbTotalChargeLabel" Content="Total Charge:" HorizontalAlignment="Left" Margin="521,257,0,0" VerticalAlignment="Top" FontSize="14"/>
         <ComboBox x:Name="cboInvoiceNumberComboBox" HorizontalAlignment="Left" Margin="191,261,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ComboBox_SelectionChanged"/>
         <ComboBox x:Name="cboTotalChargeComboBox" HorizontalAlignment="Left" Margin="611,261,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ComboBox_SelectionChanged"/>
-        <DataGrid x:Name="InvoicesDataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="160,64,160,207" SelectionChanged="InvoicesDataGrid_SelectionChanged" CanUserAddRows="False" IsReadOnly="True" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" SelectionMode="Single" CanUserSortColumns="False"/>
+        <DataGrid x:Name="InvoicesDataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="197,65,197,206" AutoGenerateColumns="False" SelectionChanged="InvoicesDataGrid_SelectionChanged" CanUserAddRows="False" IsReadOnly="True" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" SelectionMode="Single" CanUserSortColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header = "Invoice Number" Binding="{Binding Path=InvoiceNum}"></DataGridTextColumn>
+                <DataGridTextColumn Header = "Invoice Date" Binding="{Binding Path=InvoiceDate, StringFormat={}{0:MM/dd/yyyy}}"></DataGridTextColumn>
+                <DataGridTextColumn Header= "Invoice Total Cost" Binding="{Binding Path=InvoiceTotalCost, StringFormat=${0}.00}"></DataGridTextColumn>
+            </DataGrid.Columns>
+         </DataGrid>
         <Button x:Name="btnSelectInvoiceButton" Content="Select Invoice" HorizontalAlignment="Left" Margin="269,339,0,0" VerticalAlignment="Top" Height="38" Width="102" FontSize="10" Click="btnSelectInvoiceButton_Click"/>
         <Button x:Name="btnClearSelectionButton" Content="Clear Selection" HorizontalAlignment="Left" Margin="430,339,0,0" VerticalAlignment="Top" Height="38" Width="102" FontSize="10" Click="btnClearSelectionButton_Click"/>
         <ComboBox x:Name="cboInvoiceDateComboBox" HorizontalAlignment="Left" Margin="400,261,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ComboBox_SelectionChanged"/>
