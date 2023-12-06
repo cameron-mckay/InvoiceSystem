@@ -6,7 +6,7 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:InvoiceSystem"
         mc:Ignorable="d"
-        Title="SearchWindow" Height="450" Width="800" Closing="Window_Closing">
+        Title="Search" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
         <Label x:Name="lbInvoiceNumberLabel" Content="Invoice Number:" HorizontalAlignment="Left" Margin="80,257,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label x:Name="lbInvoiceDateLabel" Content="Invoice Date:" HorizontalAlignment="Left" Margin="304,257,0,0" VerticalAlignment="Top" FontSize="14"/>

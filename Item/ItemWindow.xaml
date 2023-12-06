@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:InvoiceSystem"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="ItemWindow" Height="512" Width="800" Closing="Window_Closing">
+        Title="Edit Items" Height="512" Width="800" Closing="Window_Closing">
     <Grid>
         <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="23,351,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" Click="btnAddItem_Click"/>
         <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="135,351,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" Click="btnEditItem_Click"/>
