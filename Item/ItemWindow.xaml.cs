@@ -473,7 +473,7 @@ namespace InvoiceSystem
         /// <summary>
         /// Resetting the window back to its default state
         /// </summary>
-        private void ResetWindow()
+        public void ResetWindow()
         {
             btnAddItem.IsEnabled = true;
             btnEditItem.IsEnabled = true;
