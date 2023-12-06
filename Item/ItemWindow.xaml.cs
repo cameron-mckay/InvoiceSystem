@@ -48,6 +48,11 @@ namespace InvoiceSystem
         private bool bItemSelected;
 
         /// <summary>
+        /// true or false on if a code already exists in the database
+        /// </summary>
+        private bool bIsCodeTaken;
+
+        /// <summary>
         /// clsItemLogic object
         /// </summary>
         clsItemLogic MyItem;
@@ -207,7 +212,7 @@ namespace InvoiceSystem
                 DescTextbox.IsReadOnly = false;
                 ItemList.IsEnabled = false;
                 LockWindow();
-                ErrorLabel.Content = "Insert your item info into the above textboxes!";
+                ErrorLabel.Content = "Insert your item info into the above textboxes!\n Code must only be letters and numbers \n4 characters in length";
             }
 
             catch (Exception ex)
@@ -331,33 +336,50 @@ namespace InvoiceSystem
                 /// item that is  being created with our textbox input
                 clsItem item2;
                 item2 = new clsItem();
+                bIsCodeTaken = false;
+                
 
                 if (bAddItemMode == true)
                 {
-                    if(CodeTextbox.Text == "" || CostTextbox.Text == "" || DescTextbox.Text == "")
+                    if (CodeTextbox.Text == "" || CostTextbox.Text == "" || DescTextbox.Text == "")
                     {
                         ErrorLabel.Content = "All information must be provided!";
                     }
 
                     else
                     {
-                        item2.ItemCode = CodeTextbox.Text;
-                        item2.ItemCost = Convert.ToDecimal(CostTextbox.Text);
-                        item2.ItemDesc = DescTextbox.Text;
+                        for (int i = 0; i < Items.Count; i++)
+                        {
+                            if (CodeTextbox.Text == Items[i].ItemCode)
+                            {
+                                ErrorLabel.Content = "This item code is already taken!";
+                                bIsCodeTaken = true;
+                            }
+                        }
 
-                        MyItem.AddItem(item2);
-                        DataGridRefresh();
-                        
-                        CodeTextbox.Text = "";
-                        CostTextbox.Text = "";
-                        DescTextbox.Text = "";
-                        ErrorLabel.Content = "Item added!";
-                        bAddItemMode = false;
-                        bHasItemsChanged = true;
-                        UnlockWindow();
-                        ItemList.IsEnabled = true;
+                        if (bIsCodeTaken == false)
+                        {
+                            item2.ItemCode = CodeTextbox.Text;
+                            item2.ItemCost = Convert.ToDecimal(CostTextbox.Text);
+                            item2.ItemDesc = DescTextbox.Text;
+
+                            MyItem.AddItem(item2);
+                            DataGridRefresh();
+
+                            CodeTextbox.Text = "";
+                            CostTextbox.Text = "";
+                            DescTextbox.Text = "";
+                            ErrorLabel.Content = "Item added!";
+                            bAddItemMode = false;
+                            bHasItemsChanged = true;
+                            UnlockWindow();
+                            ItemList.IsEnabled = true;
+                        }
                     }
                     
+
+                    
+
                 }
 
                 if (bEditItemMode == true)
@@ -432,6 +454,12 @@ namespace InvoiceSystem
                 btnDeleteItem.IsEnabled = true;
                 btnSaveItem.IsEnabled = false;
                 btnCancel.IsEnabled = false;
+
+                CostTextbox.IsReadOnly = true;
+                CodeTextbox.IsReadOnly = true;
+                DescTextbox.IsReadOnly = true;
+
+                bIsCodeTaken = false;
             }
 
             catch (Exception ex)
@@ -445,7 +473,7 @@ namespace InvoiceSystem
         /// <summary>
         /// Resetting the window back to its default state
         /// </summary>
-        public void ResetWindow()
+        private void ResetWindow()
         {
             btnAddItem.IsEnabled = true;
             btnEditItem.IsEnabled = true;
@@ -457,11 +485,16 @@ namespace InvoiceSystem
             bAddItemMode = false;
             bEditItemMode = false;
             bItemSelected = false;
+            bIsCodeTaken = false;
 
             CodeTextbox.Text = "";
             CostTextbox.Text = "";
             DescTextbox.Text = "";
             ErrorLabel.Content = "";
+
+            CostTextbox.IsReadOnly = true;
+            CodeTextbox.IsReadOnly = true;
+            DescTextbox.IsReadOnly = true;
 
         }
 
@@ -486,7 +519,28 @@ namespace InvoiceSystem
             }
         }
 
-       
+        /// <summary>
+        /// textbox that only allows numbers and letters, used for code textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NoSymbolValidationTextbox(object sender, TextCompositionEventArgs e)
+        {
+            try
+            {
+                Regex regex = new Regex("[^a-zA-Z0-9]+");
+                e.Handled = regex.IsMatch(e.Text);
+            }
+
+            catch (Exception ex)
+            {
+
+                Common.clsCommonUtil.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+
 
         /// <summary>
         /// Hitting the cancel button

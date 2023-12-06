@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:InvoiceSystem"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Edit Items" Height="512" Width="800" Closing="Window_Closing">
+        Title="ItemWindow" Height="512" Width="800" Closing="Window_Closing">
     <Grid>
         <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" Margin="23,351,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" Click="btnAddItem_Click"/>
         <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="135,351,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" Click="btnEditItem_Click"/>
@@ -17,7 +17,7 @@
         <Label x:Name="ErrorLabel" HorizontalAlignment="Left" Margin="23,272,0,0" VerticalAlignment="Top" FontSize="14" Height="74" Width="337"/>
         <Label x:Name="lblCost" Content="Cost:" HorizontalAlignment="Left" Margin="43,134,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.496,2.235"/>
         <Label x:Name="lblDesc" Content="Description:" HorizontalAlignment="Left" Margin="43,220,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="CodeTextbox" HorizontalAlignment="Left" Margin="135,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <TextBox x:Name="CodeTextbox" HorizontalAlignment="Left" Margin="135,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True" MaxLength="4" PreviewTextInput="NoSymbolValidationTextbox"/>
         <TextBox x:Name="CostTextbox" HorizontalAlignment="Left" Margin="135,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True" PreviewTextInput="NumberValidationTextBox"/>
         <TextBox x:Name="DescTextbox" HorizontalAlignment="Left" Margin="135,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="249,411,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" IsEnabled="False" Click="btnCancel_Click"/>
