@@ -279,15 +279,25 @@ namespace InvoiceSystem
 
                     else
                     {
-                        MyItem.DeleteItem(item.ItemCode);
+                        MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure? This cannot be undone", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+                        if (messageBoxResult == MessageBoxResult.Yes)
+                        {
+                            MyItem.DeleteItem(item.ItemCode);
 
-                        DataGridRefresh();
+                            DataGridRefresh();
 
-                        ErrorLabel.Content = "";
+                            ErrorLabel.Content = "";
 
-                        bItemSelected = false;
+                            bItemSelected = false;
 
-                        bHasItemsChanged = true;
+                            bHasItemsChanged = true;
+                        }
+
+                        else
+                        {
+                            ResetWindow();
+                        }
+                            
                     }
                     
 
@@ -398,6 +408,7 @@ namespace InvoiceSystem
                 btnEditItem.IsEnabled = false;
                 btnDeleteItem.IsEnabled = false;
                 btnSaveItem.IsEnabled = true;
+                btnCancel.IsEnabled = true;
             }
 
 
@@ -409,6 +420,9 @@ namespace InvoiceSystem
             }
         }
 
+        /// <summary>
+        /// How the window changes after successfully adding or editing an item
+        /// </summary>
         private void UnlockWindow()
         {
             try
@@ -417,6 +431,7 @@ namespace InvoiceSystem
                 btnEditItem.IsEnabled = true;
                 btnDeleteItem.IsEnabled = true;
                 btnSaveItem.IsEnabled = false;
+                btnCancel.IsEnabled = false;
             }
 
             catch (Exception ex)
@@ -427,7 +442,29 @@ namespace InvoiceSystem
             }
         }
 
-        
+        /// <summary>
+        /// Resetting the window back to its default state
+        /// </summary>
+        public void ResetWindow()
+        {
+            btnAddItem.IsEnabled = true;
+            btnEditItem.IsEnabled = true;
+            btnDeleteItem.IsEnabled = true;
+            btnSaveItem.IsEnabled = false;
+            btnCancel.IsEnabled = false;
+            ItemList.IsEnabled = true;
+
+            bAddItemMode = false;
+            bEditItemMode = false;
+            bItemSelected = false;
+
+            CodeTextbox.Text = "";
+            CostTextbox.Text = "";
+            DescTextbox.Text = "";
+            ErrorLabel.Content = "";
+
+        }
+
         /// <summary>
         /// textbox that only allows numbers, used for cost textbox
         /// </summary>
@@ -448,5 +485,17 @@ namespace InvoiceSystem
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
-}
+
+       
+
+        /// <summary>
+        /// Hitting the cancel button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ResetWindow();
+        }
+    }
 }

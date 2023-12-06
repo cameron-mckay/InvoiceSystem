@@ -20,5 +20,6 @@
         <TextBox x:Name="CodeTextbox" HorizontalAlignment="Left" Margin="135,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
         <TextBox x:Name="CostTextbox" HorizontalAlignment="Left" Margin="135,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True" PreviewTextInput="NumberValidationTextBox"/>
         <TextBox x:Name="DescTextbox" HorizontalAlignment="Left" Margin="135,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="249,411,0,0" VerticalAlignment="Top" Height="49" Width="96" FontSize="16" FontWeight="Bold" IsEnabled="False" Click="btnCancel_Click"/>
     </Grid>
 </mah:MetroWindow>

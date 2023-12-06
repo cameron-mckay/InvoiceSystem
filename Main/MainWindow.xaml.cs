@@ -132,6 +132,7 @@ namespace InvoiceSystem
                 // Check mode
                 if (!(currentMode == Mode.VIEW || currentMode == Mode.NO_INVOICE))
                     return;
+                itemWindow.ResetWindow();
                 // Show window
                 itemWindow.ShowDialog();
                 // Check if items were changed
